@@ -96,23 +96,53 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer1(50);
+  setTimer2(100);
   init7SEG();
   int status=1;
   while (1)
   {
+	if(timer2_flag){
+		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		setTimer2(100);
+	}
 	if(timer1_flag){
-		if(status==1){
+		switch(status){
+		case 1:
 			HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 0) ;
 			HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 1) ;
 			display7SEG(1);
 			status=2;
-		}
-		else if(status==2){
+			break;
+		case 2:
 			HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 1) ;
 			HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 0) ;
+			HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 1) ;
 			display7SEG(2);
+			status=3;
+			break;
+		case 3:
+			HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 0) ;
+			HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 1) ;
+			display7SEG(3);
+			status=0;
+			break;
+		case 0:
+			HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 0) ;
+			display7SEG(0);
 			status=1;
+			break;
+		default:
+			break;
 		}
+
 		setTimer1(50);
 	}
     /* USER CODE END WHILE */
@@ -216,14 +246,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|EN0_Pin|EN1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, DOT_Pin|LED_RED_Pin|EN0_Pin|EN1_Pin
+                          |EN2_Pin|EN3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LED7_0_Pin|LED7_1_Pin|LED7_2_Pin|LED7_3_Pin
                           |LED7_4_Pin|LED7_5_Pin|LED7_6_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin EN0_Pin EN1_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|EN0_Pin|EN1_Pin;
+  /*Configure GPIO pins : DOT_Pin LED_RED_Pin EN0_Pin EN1_Pin
+                           EN2_Pin EN3_Pin */
+  GPIO_InitStruct.Pin = DOT_Pin|LED_RED_Pin|EN0_Pin|EN1_Pin
+                          |EN2_Pin|EN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
