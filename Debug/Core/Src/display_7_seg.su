@@ -1,0 +1,2 @@
+display_7_seg.c:12:6:display7SEG	16	static
+display_7_seg.c:56:6:init7SEG	8	static
