@@ -403,8 +403,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(50);
- 800036e:	2032      	movs	r0, #50	; 0x32
+  setTimer1(25);
+ 800036e:	2019      	movs	r0, #25
  8000370:	f000 f920 	bl	80005b4 <setTimer1>
   setTimer2(100);
  8000374:	2064      	movs	r0, #100	; 0x64
@@ -453,8 +453,8 @@ int main(void)
  80003b8:	3301      	adds	r3, #1
  80003ba:	4a07      	ldr	r2, [pc, #28]	; (80003d8 <main+0x84>)
  80003bc:	6013      	str	r3, [r2, #0]
-		setTimer1(50);
- 80003be:	2032      	movs	r0, #50	; 0x32
+		setTimer1(25);
+ 80003be:	2019      	movs	r0, #25
  80003c0:	f000 f8f8 	bl	80005b4 <setTimer1>
 	if(timer2_flag){
  80003c4:	e7db      	b.n	800037e <main+0x2a>

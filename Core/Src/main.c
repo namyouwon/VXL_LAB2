@@ -123,7 +123,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(50);
+  setTimer1(25);
   setTimer2(100);
   init7SEG();
   while (1)
@@ -139,7 +139,7 @@ int main(void)
 
 		update7SEG(index_led);
 		index_led++;
-		setTimer1(50);
+		setTimer1(25);
 	}
     /* USER CODE END WHILE */
 
