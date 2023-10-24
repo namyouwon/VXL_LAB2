@@ -69,18 +69,22 @@ void displayDOT ( uint8_t num ) { // LSB (0) = > MSB (7)
  }
 
 void clearMatrix () {
- HAL_GPIO_WritePin ( ROW0_GPIO_Port , ROW0_Pin , 1) ;
- HAL_GPIO_WritePin ( ROW1_GPIO_Port , ROW1_Pin , 1) ;
- HAL_GPIO_WritePin ( ROW2_GPIO_Port , ROW2_Pin , 1) ;
- HAL_GPIO_WritePin ( ROW3_GPIO_Port , ROW3_Pin , 1) ;
- HAL_GPIO_WritePin ( ROW4_GPIO_Port , ROW4_Pin , 1) ;
- HAL_GPIO_WritePin ( ROW5_GPIO_Port , ROW5_Pin , 1) ;
- HAL_GPIO_WritePin ( ROW6_GPIO_Port , ROW6_Pin , 1) ;
- HAL_GPIO_WritePin ( ROW7_GPIO_Port , ROW7_Pin , 1) ;
+	HAL_GPIO_WritePin ( ROW0_GPIO_Port , ROW0_Pin , 1) ;
+	HAL_GPIO_WritePin ( ROW1_GPIO_Port , ROW1_Pin , 1) ;
+	HAL_GPIO_WritePin ( ROW2_GPIO_Port , ROW2_Pin , 1) ;
+	HAL_GPIO_WritePin ( ROW3_GPIO_Port , ROW3_Pin , 1) ;
+	HAL_GPIO_WritePin ( ROW4_GPIO_Port , ROW4_Pin , 1) ;
+	HAL_GPIO_WritePin ( ROW5_GPIO_Port , ROW5_Pin , 1) ;
+	HAL_GPIO_WritePin ( ROW6_GPIO_Port , ROW6_Pin , 1) ;
+	HAL_GPIO_WritePin ( ROW7_GPIO_Port , ROW7_Pin , 1) ;
 }
 
 uint8_t matrix_buffer [8] = {0x18 ,0x3c ,0x66 ,0x66 ,0x7e ,0x66 ,0x66 ,0x66 }; //
-
+//00011000
+//00111100
+//01100110
+//01111110
+uint8_t data = 0xE7;
 void updateLEDMatrix (int index ) {
  switch ( index ) {
  	 case 0:
@@ -165,23 +169,23 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer1(50);
-  setTimer2(100);
+//  setTimer2(100);
   init7SEG();
   int status=1;
 
-//  setTimer2(10) ;
-//  int index = 0;
-//  clearMatrix () ;
+  setTimer2(1) ;
+  int index = 0;
+  clearMatrix () ;
   while (1)
   {
 	if(timer2_flag){
-		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-		setTimer2(100);
-//		setTimer2 (1000) ;
-//		updateLEDMatrix ( index ++) ;
-//		if( index > 7) {
-//			index = 0;
-//		}
+//		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+//		setTimer2(100);
+		setTimer2 (1) ;
+		updateLEDMatrix ( index ++) ;
+		if( index > 7) {
+			index = 0;
+		}
 	}
 	if(timer1_flag){
 		switch(status){
