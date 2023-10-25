@@ -87,6 +87,7 @@ void update7SEG ( int index ) {
  	 }
  }
 int hour = 15 , minute = 8 , second = 50;
+
 void updateClockBuffer () {
 	if( hour < 10) {
 		led_buffer [0] = 0;
