@@ -131,6 +131,33 @@ void updateLEDMatrix (int index ) {
 	 break ;
 	 }
  }
+
+void shiftBit () {
+	 // Shift MSB to LSB matrix_buffer [0]
+	 int msb = ( matrix_buffer [0] & 0x80 ) >> 7;
+	 matrix_buffer [0] = ( matrix_buffer [0] << 1) + msb ;
+	 // Shift MSB to LSB matrix_buffer [1]
+	 msb = ( matrix_buffer [1] & 0x80 ) >> 7;
+	 matrix_buffer [1] = ( matrix_buffer [1] << 1) + msb ;
+	 // Shift MSB to LSB matrix_buffer [2]
+	 msb = ( matrix_buffer [2] & 0x80 ) >> 7;
+	 matrix_buffer [2] = ( matrix_buffer [2] << 1) + msb ;
+	 // Shift MSB to LSB matrix_buffer [3]
+	 msb = ( matrix_buffer [3] & 0x80 ) >> 7;
+	 matrix_buffer [3] = ( matrix_buffer [3] << 1) + msb ;
+	 // Shift MSB to LSB matrix_buffer [4]
+	 msb = ( matrix_buffer [4] & 0x80 ) >> 7;
+	 matrix_buffer [4] = ( matrix_buffer [4] << 1) + msb ;
+	 // Shift MSB to LSB matrix_buffer [5]
+	 msb = ( matrix_buffer [5] & 0x80 ) >> 7;
+	 matrix_buffer [5] = ( matrix_buffer [5] << 1) + msb ;
+	 // Shift MSB to LSB matrix_buffer [6]
+	 msb = ( matrix_buffer [6] & 0x80 ) >> 7;
+	 matrix_buffer [6] = ( matrix_buffer [6] << 1) + msb ;
+	 // Shift MSB to LSB matrix_buffer [7]
+	 msb = ( matrix_buffer [7] & 0x80 ) >> 7;
+	 matrix_buffer [7] = ( matrix_buffer [7] << 1) + msb ;
+ }
 /* USER CODE END 0 */
 
 /**
@@ -184,6 +211,7 @@ int main(void)
 		setTimer2 (10) ;
 		updateLEDMatrix ( index ++) ;
 		if( index > 7) {
+			shiftBit () ;
 			index = 0;
 		}
 	}
