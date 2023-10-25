@@ -76,6 +76,10 @@ void Error_Handler(void);
 #define EN2_GPIO_Port GPIOA
 #define EN3_Pin GPIO_PIN_9
 #define EN3_GPIO_Port GPIOA
+#define SYS_JTMS_SWDIO_Pin GPIO_PIN_13
+#define SYS_JTMS_SWDIO_GPIO_Port GPIOA
+#define SYS_JTCK_SWCLK_Pin GPIO_PIN_14
+#define SYS_JTCK_SWCLK_GPIO_Port GPIOA
 #define LED7_3_Pin GPIO_PIN_3
 #define LED7_3_GPIO_Port GPIOB
 #define LED7_4_Pin GPIO_PIN_4
