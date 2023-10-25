@@ -86,6 +86,24 @@ void update7SEG ( int index ) {
 			 break ;
  	 }
  }
+int hour = 15 , minute = 8 , second = 50;
+
+void updateClockBuffer () {
+	if( hour < 10) {
+		led_buffer [0] = 0;
+		led_buffer [1] = hour ;
+	} else {
+		led_buffer [0] = hour / 10;
+		led_buffer [1] = hour % 10;
+	}
+	if( minute < 10) {
+		led_buffer [2] = 0;
+		led_buffer [3] = minute ;
+	} else {
+		led_buffer [2] = minute / 10;
+		led_buffer [3] = minute % 10;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -123,9 +141,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(50);
+  setTimer1(100);
   setTimer2(100);
-  init7SEG();
+//  init7SEG();
   while (1)
   {
 	if(timer2_flag){
@@ -133,13 +151,20 @@ int main(void)
 		setTimer2(100);
 	}
 	if(timer1_flag){
-		if(index_led>3){
-			index_led=0;
+		HAL_GPIO_TogglePin( LED_RED_GPIO_Port , LED_RED_Pin ) ;
+		setTimer1(100) ;
+		second++;
+		if( second >= 60) {
+			second = 0;
+			minute++;
 		}
-
-		update7SEG(index_led);
-		index_led++;
-		setTimer1(50);
+		if( minute >= 60) {
+			minute = 0;
+			hour++;
+		}
+		if( hour >= 24)
+			hour = 0;
+		updateClockBuffer() ;
 	}
     /* USER CODE END WHILE */
 
