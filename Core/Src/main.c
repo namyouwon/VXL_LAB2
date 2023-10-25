@@ -59,37 +59,45 @@ static void MX_GPIO_Init(void);
 /* USER CODE BEGIN 0 */
 const int MAX_LED = 4;
 int index_led = 0;
-int led_buffer [4] = {1 , 2 , 3 , 0};
+int led_buffer [4] = {1 , 2 , 3 , 4};
 void update7SEG ( int index ) {
-	 switch ( index ) {
-		 case 0:
-			 HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 0) ;
-			 HAL_GPIO_WritePin ( GPIOA , EN1_Pin | EN2_Pin | EN3_Pin , 1) ;
-			 display7SEG ( led_buffer [ index ]) ;
-			 break ;
-		 case 1:
-			 HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 0) ;
-			 HAL_GPIO_WritePin ( GPIOA , EN0_Pin | EN2_Pin | EN3_Pin , 1) ;
-			 display7SEG ( led_buffer [ index ]) ;
-			 break ;
-		 case 2:
-			 HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 0) ;
-			 HAL_GPIO_WritePin ( GPIOA , EN0_Pin | EN1_Pin | EN3_Pin , 1) ;
-			 display7SEG ( led_buffer [ index ]) ;
-			 break ;
-		 case 3:
-			 HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 0) ;
-			 HAL_GPIO_WritePin ( GPIOA , EN0_Pin | EN1_Pin | EN2_Pin , 1) ;
-			 display7SEG ( led_buffer [ index ]) ;
-			 break ;
-		 default :
-			 break ;
- 	 }
- }
+	switch(index){
+		case 0:
+			HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 0) ;
+			HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 1) ;
+			display7SEG(led_buffer[index]);
+			break;
+		case 1:
+			HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 0) ;
+			HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 1) ;
+			display7SEG(led_buffer[index]);
+			break;
+		case 2:
+			HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 0) ;
+			HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 1) ;
+			display7SEG(led_buffer[index]);
+			break;
+		case 3:
+			HAL_GPIO_WritePin ( EN0_GPIO_Port , EN0_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN1_GPIO_Port , EN1_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN2_GPIO_Port , EN2_Pin , 1) ;
+			HAL_GPIO_WritePin ( EN3_GPIO_Port , EN3_Pin , 0) ;
+			display7SEG(led_buffer[index]);
+			break;
+		default:
+			break;
+		}
+}
 /* USER CODE END 0 */
 
 /**
-  * @brief  The application entry point.
+  * @brief  	The application entry point.
   * @retval int
   */
 int main(void)
@@ -124,8 +132,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer1(50);
-  setTimer2(100);
+//  setTimer2(100);
   init7SEG();
+
+  setTimer2(100) ;
   while (1)
   {
 	if(timer2_flag){
@@ -136,9 +146,7 @@ int main(void)
 		if(index_led>3){
 			index_led=0;
 		}
-
-		update7SEG(index_led);
-		index_led++;
+		update7SEG(index_led++);
 		setTimer1(50);
 	}
     /* USER CODE END WHILE */
@@ -250,7 +258,7 @@ static void MX_GPIO_Init(void)
                           |LED7_4_Pin|LED7_5_Pin|LED7_6_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : DOT_Pin LED_RED_Pin EN0_Pin EN1_Pin
-                           EN2_Pin EN3_Pin */
+                           EN2_Pin EN3_Pin SYS_JTMS_SWDIO_Pin SYS_JTCK_SWCLK_Pin */
   GPIO_InitStruct.Pin = DOT_Pin|LED_RED_Pin|EN0_Pin|EN1_Pin
                           |EN2_Pin|EN3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
