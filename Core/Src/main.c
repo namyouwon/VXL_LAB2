@@ -173,7 +173,7 @@ int main(void)
   init7SEG();
   int status=1;
 
-  setTimer2(1) ;
+  setTimer2(10) ;
   int index = 0;
   clearMatrix () ;
   while (1)
@@ -181,7 +181,7 @@ int main(void)
 	if(timer2_flag){
 //		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 //		setTimer2(100);
-		setTimer2 (1) ;
+		setTimer2 (10) ;
 		updateLEDMatrix ( index ++) ;
 		if( index > 7) {
 			index = 0;

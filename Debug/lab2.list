@@ -651,8 +651,8 @@ int main(void)
  800056e:	2301      	movs	r3, #1
  8000570:	607b      	str	r3, [r7, #4]
 
-  setTimer2(1) ;
- 8000572:	2001      	movs	r0, #1
+  setTimer2(10) ;
+ 8000572:	200a      	movs	r0, #10
  8000574:	f000 f9a8 	bl	80008c8 <setTimer2>
   int index = 0;
  8000578:	2300      	movs	r3, #0
@@ -668,8 +668,8 @@ int main(void)
  8000586:	d00d      	beq.n	80005a4 <main+0x5c>
 //		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 //		setTimer2(100);
-		setTimer2 (1) ;
- 8000588:	2001      	movs	r0, #1
+		setTimer2 (10) ;
+ 8000588:	200a      	movs	r0, #10
  800058a:	f000 f99d 	bl	80008c8 <setTimer2>
 		updateLEDMatrix ( index ++) ;
  800058e:	683b      	ldr	r3, [r7, #0]
